@@ -1,14 +1,22 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Phone
-
-def index(request):
-    return redirect('catalog')
-
+from django.shortcuts import render
+from phones.models import Phone
 
 def phone_catalog(request):
+    sort_param = request.GET.get('sort')
     phones = Phone.objects.all()
-    return render(request, 'catalog/catalog.html', {'phones': phones})
+
+    if sort_param == 'name':
+        phones = phones.order_by('name')
+    elif sort_param == 'min_price':
+        phones = phones.order_by('price')
+    elif sort_param == 'max_price':
+        phones = phones.order_by('-price')
+
+    return render(request, 'phones/catalog.html', {'phones': phones})
 
 def phone_detail(request, slug):
-    phone = get_object_or_404(Phone, slug=slug)
-    return render(request, 'catalog/phone_detail.html', {'phone': phone})
+    phone = Phone.objects.get(slug=slug)
+    return render(request, 'phones/product.html', {'phone': phone})
+
+def home(request):
+    return render(request, 'phones/home.html')

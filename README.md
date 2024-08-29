@@ -1,3 +1,60 @@
+# Catalog Product Upload from CSV
+
+This project is a web application that allows you to upload product data from a CSV file and save it to a database. The application also provides a catalog page to display the uploaded products and a detail page for each product.
+
+## Features
+
+1. Create a Phone model in models.py with the following fields:
+   - id: Primary key
+   - name: Product name
+   - price: Product price
+   - image: Product image
+   - release_date: Product release date
+   - lte_exists: Indicates if the product supports LTE
+   - slug: Slugified version of the product name
+
+2. Implement a management command import_phones in import_phones.py to transfer data from a CSV file to the Phone model.
+
+3. Create a catalog page /catalog that displays all the uploaded products.
+
+4. Create a product detail page /catalog/<slug> that displays the details of a specific product.
+
+5. Implement sorting functionality on the catalog page to allow users to sort products by name (alphabetical order) and price (ascending and descending).
+
+## Usage
+
+1. Install the dependencies:
+
+   pip install -r requirements.txt
+
+2. Create the database migrations:
+
+   python manage.py makemigrations
+   python manage.py migrate
+
+3. Import the product data from the CSV file:
+
+   python manage.py import_phones
+
+4. Start the development server:
+
+   python manage.py runserver
+
+5. Access the application in your web browser:
+   - Catalog page: http://127.0.0.1:8000/catalog
+   - Product detail page: http://127.0.0.1:8000/catalog/<slug>
+
+## Implementation Details
+
+1. The Phone model is defined in models.py with the required fields.
+2. The import_phones.py file contains the management command import_phones to load the product data from a CSV file into the Phone model.
+3. The catalog page /catalog is implemented in the views.py file, and it displays all the uploaded products.
+4. The product detail page /catalog/<slug> is also implemented in the views.py file, and it displays the details of a specific product.
+5. The sorting functionality is implemented by processing the sort parameter from the request.GET data in the views.py file.
+
+
+
+
 # Выгрузка каталога товаров из csv-файла с сохранением всех позиций в базе данных
 
 ## Задание
